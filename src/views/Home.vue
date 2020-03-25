@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div>
+    <div class="title">
       <span class="md-display-1">Work description generator</span>
     </div>
     <md-field>
@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  max-width: 80%;
+  max-width: 60%;
   margin-left: auto;
   margin-right: auto;
   padding-top: 60px;
@@ -58,5 +58,8 @@ export default {
   margin-top: 0px;
   margin-bottom: 0px;
   height: 130px;
+}
+.title {
+  padding-bottom: 30px;
 }
 </style>
