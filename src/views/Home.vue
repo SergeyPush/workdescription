@@ -1,18 +1,62 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <div>
+      <span class="md-display-1">Work description generator</span>
+    </div>
+    <md-field>
+      <label>Click to copy in clipboard</label>
+      <md-textarea v-model="textarea" md-counter="500" id="textarea" @click="copyText"></md-textarea>
+    </md-field>
+    <md-button @click="generateRandomDescription">Generate new description</md-button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import data from "../assets/db.json";
+import _ from "lodash";
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      data,
+      textarea: ""
+    };
+  },
+  methods: {
+    generateRandomDescription() {
+      this.textarea = _.sampleSize(data["qa"], 5).join("\n");
+    },
+    copyText() {
+      let copyText = document.getElementById("textarea");
+
+      /* Select the text field */
+      copyText.select();
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+      this.$toast.open({
+        message: "Copied to clipboard",
+        type: "success",
+        position: "top-right"
+        // all other options
+      });
+    }
+  },
+  mounted() {
+    this.generateRandomDescription();
   }
-}
+};
 </script>
+
+<style lang="scss" scoped>
+.container {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 60px;
+}
+#textarea {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 130px;
+}
+</style>
