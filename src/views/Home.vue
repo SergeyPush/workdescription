@@ -4,6 +4,15 @@
       <span class="md-display-1">Work description generator</span>
     </div>
     <md-field>
+      <md-select class="select" v-model="selected" @md-selected="generateRandomDescription">
+        <md-option
+          v-for="(option, index) in options"
+          :key="index"
+          :value="option.value"
+        >{{option.text}}</md-option>
+      </md-select>
+    </md-field>
+    <md-field>
       <label>Click to copy in clipboard</label>
       <md-textarea v-model="textarea" md-counter="500" id="textarea" @click="copyText"></md-textarea>
     </md-field>
@@ -18,12 +27,17 @@ export default {
   data() {
     return {
       data,
-      textarea: ""
+      textarea: "",
+      selected: "qa",
+      options: [
+        { text: "QA", value: "qa" },
+        { text: "Dev", value: "dev" }
+      ]
     };
   },
   methods: {
     generateRandomDescription() {
-      this.textarea = _.sampleSize(data["qa"], 5).join("\n");
+      this.textarea = _.sampleSize(data[this.selected], 5).join("\n");
     },
     copyText() {
       let copyText = document.getElementById("textarea");
