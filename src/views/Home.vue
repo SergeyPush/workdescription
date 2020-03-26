@@ -13,7 +13,7 @@
       </md-select>
     </md-field>
     <md-field>
-      <label>Click to copy in clipboard</label>
+      <label>Click to copy to clipboard</label>
       <md-textarea v-model="textarea" md-counter="500" id="textarea" @click="copyText"></md-textarea>
     </md-field>
     <md-button @click="generateRandomDescription">Generate new description</md-button>
