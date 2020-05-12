@@ -2,7 +2,7 @@
   <div class="container">
     <a-page-header title="Work description generator" class="title" style="margin:auto" />
 
-    <a-card :hoverable="true">
+    <a-card :hoverable="false" class="card">
       <div class="selectors">
         <div class="column">
           <label class="label">Position</label>
@@ -26,7 +26,13 @@
         </div>
       </div>
 
-      <a-tooltip title="Click on textarea to copy to clipboard" placement="bottomRight">
+      <a-descriptions>
+        <a-descriptions-item
+          label="Info"
+          class="info"
+        >In order to copy description click on textarea below</a-descriptions-item>
+      </a-descriptions>
+      <a-tooltip title="Click on textarea to copy description" placement="topLeft">
         <a-textarea v-model="textarea" md-counter="500" id="textarea" @click="copyText" autoSize></a-textarea>
       </a-tooltip>
 
@@ -53,6 +59,7 @@ export default {
   },
   methods: {
     generateRandomDescription() {
+      localStorage.setItem("selected", this.selected);
       this.textarea = _.sampleSize(
         data[this.selected],
         this.numberOfItems
@@ -60,10 +67,8 @@ export default {
     },
     copyText() {
       let copyText = document.getElementById("textarea");
-
       /* Select the text field */
       copyText.select();
-
       /* Copy the text inside the text field */
       document.execCommand("copy");
       this.$notification["info"]({
@@ -72,9 +77,16 @@ export default {
         // position: "top-right"
         // all other options
       });
+    },
+    getSelectedItem() {
+      const selected = localStorage.getItem("selected");
+      if (selected) {
+        this.selected = selected;
+      }
     }
   },
   mounted() {
+    this.getSelectedItem();
     this.generateRandomDescription();
   }
 };
@@ -82,7 +94,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  max-width: 60%;
+  max-width: 50%;
   margin-left: auto;
   margin-right: auto;
   padding-top: 60px;
@@ -106,5 +118,8 @@ export default {
 .label {
   margin-right: 5px;
   font-weight: bold;
+}
+.card {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 </style>
