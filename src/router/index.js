@@ -8,21 +8,21 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
-  }
-  // {
-  //   path: "/about",
-  //   name: "About",
+    component: Home,
+  },
+  {
+    path: "/description",
+    name: "About",
 
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  // }
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Description.vue"),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

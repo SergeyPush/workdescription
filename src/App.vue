@@ -1,23 +1,30 @@
 <template>
   <div id="app">
-    <app-home></app-home>
+    <Menu />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AppHome from "./views/Home";
+import Menu from "@/components/Menu.vue";
 export default {
   components: {
-    AppHome
+    Menu
   }
 };
 </script>
 
 <style lang="scss">
+body {
+  background-color: #fafafa;
+  color: #383b3f;
+  font-family: "IBM Plex Sans", sans-serif;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  // font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "IBM Plex Sans", sans-serif;
   text-align: center;
   color: #2c3e50;
 }
