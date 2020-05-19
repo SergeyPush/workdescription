@@ -70,7 +70,7 @@ export default {
           this.getDescriptionArray,
           this.numberOfItems
         ).join("\n");
-      }, 300);
+      }, 1000);
     },
     copyText() {
       let copyText = document.getElementById("textarea");
