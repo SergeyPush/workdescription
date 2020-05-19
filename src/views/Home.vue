@@ -35,7 +35,7 @@
 
       <a-textarea
         v-model="textarea"
-        v-if="!getIsLoading"
+        v-if="!getIsLoading&&!isLoading"
         md-counter="500"
         id="textarea"
         @click="copyText"
@@ -57,19 +57,21 @@ export default {
     return {
       textarea: "",
       selected: "qa",
-      numberOfItems: 5
+      numberOfItems: 5,
+      isLoading: false
     };
   },
   methods: {
     generateRandomDescription() {
       // localStorage.setItem("selected", this.selected);
-
+      this.isLoading = true;
       this.$store.dispatch("getDescriptions", this.selected);
       setTimeout(() => {
         this.textarea = _.sampleSize(
           this.getDescriptionArray,
           this.numberOfItems
         ).join("\n");
+        this.isLoading = false;
       }, 1000);
     },
     copyText() {
