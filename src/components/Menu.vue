@@ -2,12 +2,12 @@
   <div>
     <a-menu mode="horizontal" v-model="current">
       <a-menu-item key="home">
-        <router-link to="/" exact active-class>
+        <router-link :to="{name:'home'}" active-class>
           <a-icon type="form" />Generate
         </router-link>
       </a-menu-item>
-      <a-menu-item key="descriptions">
-        <router-link to="/description" exact active-class>
+      <a-menu-item key="description">
+        <router-link :to="{name:'description'}" active-class>
           <a-icon type="setting" />Descriptions
         </router-link>
       </a-menu-item>
@@ -19,8 +19,13 @@
 export default {
   data() {
     return {
-      current: ["home"]
+      current: [`${this.$route.name || window.location.pathname.slice(1)}`]
     };
+  },
+  computed: {
+    getName() {
+      return this.$router.currentRoute.name;
+    }
   }
 };
 </script>

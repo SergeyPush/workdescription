@@ -16,7 +16,7 @@ export default {
 
 <style lang="scss">
 body {
-  background-color: #fafafa;
+  background-color: #f4f8fe;
   color: #383b3f;
   font-family: "IBM Plex Sans", sans-serif;
 }
@@ -27,5 +27,7 @@ body {
   font-family: "IBM Plex Sans", sans-serif;
   text-align: center;
   color: #2c3e50;
+  background-color: #f4f8fe;
+  height: 100vh;
 }
 </style>

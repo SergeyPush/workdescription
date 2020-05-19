@@ -8,7 +8,7 @@
           <label class="label">Position</label>
           <a-select class="select" v-model="selected" @change="generateRandomDescription">
             <a-select-option
-              v-for="(option, index) in options"
+              v-for="(option, index) in getOptions"
               :key="index"
               :value="option.value"
             >{{option.text}}</a-select-option>
@@ -32,9 +32,16 @@
           class="info"
         >In order to copy description click on textarea below</a-descriptions-item>
       </a-descriptions>
-      <a-tooltip title="Click on textarea to copy description" placement="topLeft">
-        <a-textarea v-model="textarea" md-counter="500" id="textarea" @click="copyText" autoSize></a-textarea>
-      </a-tooltip>
+
+      <a-textarea
+        v-model="textarea"
+        v-if="!getIsLoading"
+        md-counter="500"
+        id="textarea"
+        @click="copyText"
+        autoSize
+      ></a-textarea>
+      <a-skeleton active v-else />
 
       <a-button @click="generateRandomDescription">Generate new description</a-button>
     </a-card>
@@ -42,40 +49,35 @@
 </template>
 
 <script>
-import data from "../assets/db.json";
 import _ from "lodash";
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
-      data,
       textarea: "",
       selected: "qa",
-      numberOfItems: 5,
-      options: [
-        { text: "QA", value: "qa" },
-        { text: "Dev", value: "dev" }
-      ]
+      numberOfItems: 5
     };
   },
   methods: {
     generateRandomDescription() {
-      localStorage.setItem("selected", this.selected);
-      this.textarea = _.sampleSize(
-        data[this.selected],
-        this.numberOfItems
-      ).join("\n");
+      // localStorage.setItem("selected", this.selected);
+
+      this.$store.dispatch("getDescriptions", this.selected);
+      setTimeout(() => {
+        this.textarea = _.sampleSize(
+          this.getDescriptionArray,
+          this.numberOfItems
+        ).join("\n");
+      }, 300);
     },
     copyText() {
       let copyText = document.getElementById("textarea");
-      /* Select the text field */
       copyText.select();
-      /* Copy the text inside the text field */
       document.execCommand("copy");
       this.$notification["info"]({
         message: "Copied to clipboard"
-        // type: "success",
-        // position: "top-right"
-        // all other options
       });
     },
     getSelectedItem() {
@@ -85,8 +87,15 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters([
+      "getOptions",
+      "getDescriptionArray",
+      "getDescription",
+      "getIsLoading"
+    ])
+  },
   mounted() {
-    this.getSelectedItem();
     this.generateRandomDescription();
   }
 };

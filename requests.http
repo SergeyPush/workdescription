@@ -1,0 +1,20 @@
+GET https://work-description.firebaseio.com/dev.json
+###
+GET https://work-description.firebaseio.com/dev/-M7Yy0ovdwrpvpDC3p7d.json
+###
+POST https://work-description.firebaseio.com/dev.json/
+Content-Type: application/json
+
+{
+    "text": "dev3"
+}
+###
+PATCH https://work-description.firebaseio.com/dev/-M7Yy0ovdwrpvpDC3p7d.json
+Content-Type: application/json
+
+{
+    "text":"Hello world"
+}
+
+###
+DELETE  https://work-description.firebaseio.com/dev/-M7Yy0ovdwrpvpDC3p7d.json
