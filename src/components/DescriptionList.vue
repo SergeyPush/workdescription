@@ -63,8 +63,8 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
+  width: 100%;
 }
 .bage {
   display: flex;

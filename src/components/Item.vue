@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <div class="item" id="item">
-      <span>{{item.text}}</span>
-      <a-button
-        type="danger"
-        icon="delete"
-        @click="handleRemove"
-        :loading="isLoading"
-        class="button"
-      />
-    </div>
+  <div class="item" id="item">
+    <span>{{item.text}}</span>
+    <a-button
+      type="danger"
+      icon="delete"
+      @click="handleRemove"
+      :loading="isLoading"
+      class="button"
+    />
   </div>
 </template>
 

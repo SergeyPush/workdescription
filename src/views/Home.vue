@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <a-page-header title="Work description generator" class="title" style="margin:auto" />
+    <!-- <a-page-header title="Work description generator" class="title" style="margin:auto" /> -->
+    <h1 class="title">Work description generator</h1>
 
     <a-card :hoverable="false" class="card">
       <div class="selectors">
@@ -33,47 +34,38 @@
         >In order to copy description click on textarea below</a-descriptions-item>
       </a-descriptions>
 
-      <a-textarea
-        v-model="textarea"
-        v-if="!getIsLoading&&!isLoading"
-        md-counter="500"
+      <textarea
+        v-if="!getIsLoading"
         id="textarea"
+        class="textarea"
+        cols="50"
+        rows="10"
+        :value="getDescriptionArray(numberOfItems)"
         @click="copyText"
-        autoSize
-      ></a-textarea>
+      ></textarea>
       <a-skeleton active v-else />
-
       <a-button @click="generateRandomDescription">Generate new description</a-button>
     </a-card>
   </div>
 </template>
 
 <script>
-import _ from "lodash";
 import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      textarea: "",
       selected: "qa",
-      numberOfItems: 5,
-      isLoading: false
+      numberOfItems: 5
     };
   },
   methods: {
     generateRandomDescription() {
       // localStorage.setItem("selected", this.selected);
-      this.isLoading = true;
+
       this.$store.dispatch("getDescriptions", this.selected);
-      setTimeout(() => {
-        this.textarea = _.sampleSize(
-          this.getDescriptionArray,
-          this.numberOfItems
-        ).join("\n");
-        this.isLoading = false;
-      }, 1000);
     },
+
     copyText() {
       let copyText = document.getElementById("textarea");
       copyText.select();
@@ -108,12 +100,15 @@ export default {
   max-width: 50%;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 60px;
 }
 #textarea {
   margin-top: 0px;
   margin-bottom: 1rem;
   height: 130px;
+  width: 100%;
+  resize: vertical;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .column {
   width: 50%;
@@ -132,5 +127,9 @@ export default {
 }
 .card {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.title {
+  margin-top: 24px;
+  margin-bottom: 60px;
 }
 </style>

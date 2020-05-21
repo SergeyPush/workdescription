@@ -7,6 +7,7 @@ export default {
     desc: [],
     selected: { text: "QA", value: "qa" },
     isLoading: false,
+
     options: [
       { text: "QA", value: "qa" },
       { text: "Dev", value: "dev" },
@@ -18,7 +19,22 @@ export default {
     getDescription: (state) => state.desc,
     getSelected: (state) => state.selected.value,
     getOptions: (state) => state.options,
-    getDescriptionArray: (state) => state.desc.map((item) => item.text),
+    getDescriptionArray: (state) => (number) => {
+      const arr = state.desc.map((item) => item.text);
+      const randomarr = [];
+      if (arr.length > 0) {
+        for (let i = randomarr.length; i < number; i++) {
+          const r = Math.floor(Math.random() * arr.length);
+          if (randomarr.indexOf(r) === -1) {
+            randomarr.push(r);
+          } else {
+            i--;
+          }
+        }
+        return randomarr.map((item) => arr[item]).join("\n");
+      }
+      return "";
+    },
     getIsLoading: (state) => state.isLoading,
   },
 
