@@ -23,7 +23,9 @@
         :style="{textAlign:'left', display:'flex', flexDirection:'row', 'flex-wrap':'wrap' }"
         class="pane"
       >
-        <p v-if="getDescription.length===0">No descriptions yet. Add it in section above</p>
+        <p
+          v-if="getDescription.length===0&&!getIsLoading"
+        >No descriptions yet. Add it in section above</p>
         <div class="wrapper" v-if="!getIsLoading">
           <Item
             v-for="(item) in getDescription"
@@ -54,7 +56,14 @@ export default {
       this.$store.dispatch("getDescriptions", val);
     }
   },
-  computed: mapGetters(["getOptions", "getDescription", "getIsLoading"]),
+  computed: {
+    ...mapGetters([
+      "getOptions",
+      "getDescription",
+      "getIsLoading",
+      "getSelected"
+    ])
+  },
   mounted() {
     this.$store.dispatch("getDescriptions", this.active);
   }
@@ -65,6 +74,9 @@ export default {
   display: flex;
   flex-flow: row wrap;
   width: 100%;
+  div {
+    flex: 1 1 auto;
+  }
 }
 .bage {
   display: flex;

@@ -41,6 +41,10 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   position: relative;
+  transition: box-shadow 0.1s linear;
+  &:hover {
+    box-shadow: 0 2px 5px 0 rgba(52, 47, 51, 0.63);
+  }
 }
 
 .item:hover .button {

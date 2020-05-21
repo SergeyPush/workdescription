@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- <a-page-header title="Work description generator" class="title" style="margin:auto" /> -->
     <h1 class="title">Work description generator</h1>
 
     <a-card :hoverable="false" class="card">
@@ -61,8 +60,7 @@ export default {
   },
   methods: {
     generateRandomDescription() {
-      // localStorage.setItem("selected", this.selected);
-
+      localStorage.setItem("selected", this.selected);
       this.$store.dispatch("getDescriptions", this.selected);
     },
 
@@ -90,6 +88,7 @@ export default {
     ])
   },
   mounted() {
+    this.getSelectedItem();
     this.generateRandomDescription();
   }
 };

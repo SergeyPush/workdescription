@@ -7,7 +7,7 @@
         <a-button key="submit" type="primary" :loading="loading" @click="handleOk">Submit</a-button>
       </template>
       <template>
-        <a-select class="select" :default-value="getSelected" @change="select">
+        <a-select class="select" :default-value="selected" @change="select">
           <a-select-option
             v-for="(option, index) in getOptions"
             :key="index"
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {
@@ -40,10 +39,13 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["select"]),
     ...mapActions(["addDescription"]),
     showModal() {
       this.visible = true;
+    },
+    select(value) {
+      console.log(value);
+      localStorage.setItem("selected", value);
     },
     handleOk() {
       if (!this.textarea.trim()) {
@@ -64,10 +66,19 @@ export default {
     },
     handleCancel() {
       this.visible = false;
+    },
+    getSelectedItem() {
+      const selected = localStorage.getItem("selected");
+      if (selected) {
+        this.selected = selected;
+      }
     }
   },
   computed: {
     ...mapGetters(["getSelected", "getOptions"])
+  },
+  mounted() {
+    this.getSelectedItem();
   }
 };
 </script>

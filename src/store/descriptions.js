@@ -31,7 +31,7 @@ export default {
             i--;
           }
         }
-        return randomarr.map((item) => arr[item]).join("\n");
+        return randomarr.map((item) => `-${arr[item]};`).join("\n");
       }
       return "";
     },
